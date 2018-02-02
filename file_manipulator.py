@@ -6,15 +6,12 @@ from sys import argv
 def duplicate_file_list(flist, num_of_duplicates):
     for i in range(num_of_duplicates):
         for fname in flist:
-            shutil.copy(fname, fname + "_" + str(i))
+            suffix = fname.split(".")[-1]
+            shutil.copy(fname, fname + "_" + str(i) + "." + suffix)
 
 
 def clean_file_names(dir_path, junk_pattern):
     for filename in os.listdir(dir_path):
-        # old_filename = filename
-        # filename.replace(junk_pattern, "")
-        # print "names", old_filename, filename
-        # print "junk pattern", junk_pattern
         os.rename(os.path.join(dir_path, filename), os.path.join(dir_path, filename.replace(junk_pattern, "")))
 
 
