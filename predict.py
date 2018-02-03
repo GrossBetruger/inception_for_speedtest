@@ -2,8 +2,9 @@ from subprocess import Popen, PIPE
 from sys import argv
 
 
-PREDICT_CMD = "python tensorflow/tensorflow/examples/label_image/label_image.py --graph={0}/output_graph.pb --labels={0}/output_labels.txt --input_layer=Mul --output_layer=final_result --input_mean=128 --input_std=128 --image={1}"
-
+PREDICT_CMD = "python tensorflow/tensorflow/examples/label_image/label_image.py --graph={0}/output_graph.pb " \
+              "--labels={0}/output_labels.txt --input_layer=Mul --output_layer=final_result --input_mean=128 " \
+              "--input_std=128 --image={1} "
 
 
 def predict(model_path, image_path):
