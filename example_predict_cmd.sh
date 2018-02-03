@@ -1,0 +1,1 @@
+python tensorflow/tensorflow/examples/label_image/label_image.py --graph=models/9_classes/output_graph.pb --labels=models/9_classes/output_labels.txt --input_layer=Mul --output_layer=final_result --input_mean=128 --input_std=128 --image=test_set/hot_start/9731914136151-1173170842.jpg
