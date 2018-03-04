@@ -3,6 +3,16 @@ import os
 from sys import argv
 
 
+def is_parent_dir(dir_path):
+    return all(os.path.isdir(os.path.join(dir_path, x)) for x in os.listdir(dir_path))
+
+
+def duplicate_dir(dir_path, propagation_factor):
+    os.chdir(dir_path)
+    files = os.listdir(".")
+    duplicate_file_list(files, propagation_factor)
+
+
 def duplicate_file_list(flist, num_of_duplicates):
     for i in range(num_of_duplicates):
         for fname in flist:
@@ -29,8 +39,13 @@ if __name__ == "__main__":
         print "USAGE: file_manipulator.py rename/duplicate dir_path, chars_to_remove/num_of_duplicates"
 
     if mode == "duplicate":
-        os.chdir(dir_path)
-        files = os.listdir(".")
-        duplicate_file_list(files, propagation_factor)
+        if is_parent_dir(dir_path):
+            for child_dir in [os.path.join(os.getcwd(), dir_path, x) for x in os.listdir(dir_path) if not x.startswith(".")]:
+                print "duplicating: ", child_dir
+                duplicate_dir(child_dir, propagation_factor)
+        else:
+            print "duplicating", dir_path
+            duplicate_dir(dir_path, propagation_factor)
+
     elif mode == "rename":
         clean_file_names(dir_path, junk_chars)
