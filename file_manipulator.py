@@ -1,7 +1,7 @@
 import shutil
 import os
 from sys import argv
-
+from re import search
 
 def is_parent_dir(dir_path):
     return all(os.path.isdir(os.path.join(dir_path, x)) for x in os.listdir(dir_path))
@@ -36,7 +36,7 @@ if __name__ == "__main__":
         else:
             raise ValueError
     except (IndexError, ValueError):
-        print "USAGE: file_manipulator.py rename/duplicate dir_path, chars_to_remove/num_of_duplicates"
+        print "USAGE: file_manipulator.py duplicate/rename rename/duplicate dir_path, chars_to_remove/num_of_duplicates"
 
     if mode == "duplicate":
         if is_parent_dir(dir_path):
