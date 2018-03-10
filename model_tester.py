@@ -1,4 +1,7 @@
 import os
+
+import sys
+
 from predict import predict
 from shutil import copy
 from multiprocessing import Pool
@@ -30,12 +33,14 @@ def order_by_prediction(model, img_path, save_path):
 
 
 if __name__ == "__main__":
-    save_path = "/home/oren/ClassifierTest"
-    dump_path = "/home/oren/s3/dump2"
-    model, img_path = "models/11_classes_double_dataset/", "/home/oren/s3/dump2/04CE66A48046E2C3517D6290A6F78AEF-0.989509-hot-middle.png"
+    try:
+        model = sys.argv[1]#"models/11_classes_double_dataset/"
+        dump_path = sys.argv[2]#"/home/oren/s3/dump2"
+        save_path = sys.argv[3]#"/home/oren/ClassifierTest"
+    except IndexError:
+        print "USAGE: python model_tester.py model images_dump_path save_path"
 
     img_paths = [os.path.join(dump_path, fpath) for fpath in os.listdir(dump_path)]
     jobs = [(model, imgp, save_path) for imgp in img_paths]
-    order_by_prediction(model, img_path, save_path)
     prediction_pool = Pool(8)
     prediction_pool.map(job_decorator, jobs)
