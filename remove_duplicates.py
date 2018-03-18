@@ -5,7 +5,7 @@ from re import search
 def remove_duplicates(dir_path):
     files = [os.path.join(dir_path, file_name) for file_name in os.listdir(dir_path)]
     for fpath in files:
-        if search(".+?jpg.+?jpg", fpath):
+        if search("(.+?jpg.+?jpg)|(.+?jpeg.+?jpeg)", fpath):
             os.unlink(fpath)
 
 
